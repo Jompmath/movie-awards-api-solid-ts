@@ -121,4 +121,4 @@ year;title;studios;producers;winner
 
 ## Minhas considerações 
 
-Embora o requisito não exigisse o uso de TypeScript nem a aplicação dos princípios SOLID, optei por utilizá-los para demonstrar conhecimentos avançados de desenvolvimento de software — como injeção de dependência, inversão de controle e segregação de interfaces — que podem ser úteis conforme as diretrizes da empresa e a complexidade do problemae dos testes automatizados.
+Embora o requisito não exigisse o uso de TypeScript nem a aplicação dos princípios SOLID, optei por utilizá-los para demonstrar conhecimentos avançados de desenvolvimento de software — como injeção de dependência, inversão de controle e segregação de interfaces — que podem ser úteis conforme as diretrizes da empresa e a complexidade do problema e dos testes automatizados.
