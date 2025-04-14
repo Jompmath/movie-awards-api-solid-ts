@@ -107,6 +107,18 @@ year;title;studios;producers;winner
 1981;Movie B;Studio Y;Producer 2;no
 ```
 
+## Sobre o algorítmo utilizado
+
+- Busca todos os filmes vencedores do banco de dados
+- Para cada produtor, carrega a lista de anos que ele ganhou
+- Ignora produtores com menos de 2 vitórias
+- Ordena os anos de vitória em ordem crescente para resolver desordenação na entrada
+- Calcula os intervalos entre vitórias consecutivas
+- Encontra o menor e maior intervalo entre todos os intervalos calculados
+- Retorna dois arrays:
+  - min: todos os intervalos que são iguais ao menor intervalo
+  - max: todos os intervalos que são iguais ao maior intervalo
+
 ## Minhas considerações 
 
-Embora o requisito não exigisse o uso de TypeScript nem a aplicação dos princípios SOLID, optei por utilizá-los para demonstrar conhecimentos avançados de desenvolvimento de software — como injeção de dependência, inversão de controle e segregação de interfaces — que podem ser úteis conforme as diretrizes da empresa e a complexidade do problema.
+Embora o requisito não exigisse o uso de TypeScript nem a aplicação dos princípios SOLID, optei por utilizá-los para demonstrar conhecimentos avançados de desenvolvimento de software — como injeção de dependência, inversão de controle e segregação de interfaces — que podem ser úteis conforme as diretrizes da empresa e a complexidade do problemae dos testes automatizados.
