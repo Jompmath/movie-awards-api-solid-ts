@@ -106,3 +106,7 @@ year;title;studios;producers;winner
 1980;Movie A;Studio X;Producer 1;yes
 1981;Movie B;Studio Y;Producer 2;no
 ```
+
+## Minhas considerações 
+
+Embora o requisito não exigisse o uso de TypeScript nem a aplicação dos princípios SOLID, optei por utilizá-los para demonstrar conhecimentos avançados de desenvolvimento de software — como injeção de dependência, inversão de controle e segregação de interfaces — que podem ser úteis conforme as diretrizes da empresa e a complexidade do problema.

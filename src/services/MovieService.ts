@@ -29,10 +29,12 @@ export class MovieService implements IMovieService {
 
   async getProducerIntervals(): Promise<ProducerIntervals> {
     const winnerMovies = await this.repository.getWinnerMovies();
-    const producerWins = new Map<string, number[]>();//Map onde a chave é o nome do produtor e o valor é um array com os anos em que ele ganhou
+
+    const producerWins = new Map<string, number[]>();
 
     // Agrupando os anos de premiação por produtor
     // Para cada produtor, carrega a lista de anos que ele ganhou
+    // producerWins = { "João Silva": [1990, 1995, 2000] }
     for (const movie of winnerMovies) {
       const producers = movie.producers.split(',').map(p => p.trim());
       for (const producer of producers) {
@@ -49,12 +51,15 @@ export class MovieService implements IMovieService {
     for (const [producer, years] of producerWins.entries()) {
       if (years.length < 2) continue; //Para cada produtor com 2 ou mais vitórias
 
-      for (let i = 0; i < years.length - 1; i++) {
+      // Ordenando os anos antes de calcular os intervalos
+      const sortedYears = [...years].sort((a, b) => a - b);
+
+      for (let i = 0; i < sortedYears.length - 1; i++) {
         intervals.push({
           producer,
-          interval: years[i + 1] - years[i], //calcula os intervalos entre vitórias consecutivas
-          previousWin: years[i],
-          followingWin: years[i + 1]
+          interval: sortedYears[i + 1] - sortedYears[i], //calcula os intervalos entre vitórias consecutivas
+          previousWin: sortedYears[i],
+          followingWin: sortedYears[i + 1]
         });
       }
     }
