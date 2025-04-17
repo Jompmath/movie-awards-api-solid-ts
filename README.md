@@ -127,3 +127,15 @@ year;title;studios;producers;winner
 ## Minhas considerações 
 
 Embora o requisito não exigisse o uso de TypeScript nem a aplicação dos princípios SOLID, optei por utilizá-los para demonstrar conhecimentos avançados de desenvolvimento de software — como injeção de dependência, inversão de controle e segregação de interfaces — que podem ser úteis conforme as diretrizes da empresa e a complexidade do problema e dos testes automatizados.
+
+
+## |Considerações e readequação 
+
+Considerando o conjunto de dados fornecido juntamente com o teste, o resultado esperado é um registro min com intervalo igual a 1 e um registro max com intervalo igual a 13;
+> **Nota**: De fato, eu não tinha contemplado que poderia haver produtores ganhando prêmios juntos como "Steven Perry and Joel Silver" em 1990 e que um ano após 1991, Joel Silver ganhou sozinho, ou seja, para o produtor Joel Silver o intervalo é de 1 ano.
+
+Requisito não funcional 2: O teste de integração deve garantir que o retorno da API é exatamente o esperado de acordo com os dados do arquivo padrão e falhar caso contrário;
+> **Nota**: Sim, deixei o teste muito geral. Agora como especificado, o teste leva em consideração os valores esperados no arquivo original.
+
+Requisito do sistema: O sistema deve carregar o arquivo original fornecido juntamente com a proposta do teste automaticamente.
+> **Nota**: Adequei o comando de inicialização para que, caso seja passado um path de arquivo como argumento carregue ele, caso contrário carrega o arquivo original como default
