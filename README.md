@@ -129,7 +129,7 @@ year;title;studios;producers;winner
 Embora o requisito não exigisse o uso de TypeScript nem a aplicação dos princípios SOLID, optei por utilizá-los para demonstrar conhecimentos avançados de desenvolvimento de software — como injeção de dependência, inversão de controle e segregação de interfaces — que podem ser úteis conforme as diretrizes da empresa e a complexidade do problema e dos testes automatizados.
 
 
-## |Considerações e readequação 
+## Considerações e readequação 
 
 Considerando o conjunto de dados fornecido juntamente com o teste, o resultado esperado é um registro min com intervalo igual a 1 e um registro max com intervalo igual a 13;
 > **Nota**: De fato, eu não tinha contemplado que poderia haver produtores ganhando prêmios juntos como "Steven Perry and Joel Silver" em 1990 e que um ano após 1991, Joel Silver ganhou sozinho, ou seja, para o produtor Joel Silver o intervalo é de 1 ano.
