@@ -33,11 +33,14 @@ export class MovieService implements IMovieService {
     const producerWins = new Map<string, number[]>();
 
     // Agrupando os anos de premiação por produtor
-    // Para cada produtor, carrega a lista de anos que ele ganhou
-    // producerWins = { "João Silva": [1990, 1995, 2000] }
     for (const movie of winnerMovies) {
-      const producers = movie.producers.split(',').map(p => p.trim());
-      for (const producer of producers) {
+      // Tratando diferentes formatos de separação de produtores
+      const producersList = movie.producers
+        .split(/,| and /)  // Separando por vírgula ou " and "
+        .map(p => p.trim())
+        .filter(p => p.length > 0);  // Removendo strings vazias
+
+      for (const producer of producersList) {
         if (!producerWins.has(producer)) {
           producerWins.set(producer, []);
         }
@@ -49,17 +52,21 @@ export class MovieService implements IMovieService {
 
     // Calculando os intervalos para cada produtor
     for (const [producer, years] of producerWins.entries()) {
-      if (years.length < 2) continue; //Para cada produtor com 2 ou mais vitórias
+      if (years.length < 2) continue; // Para cada produtor com 2 ou mais vitórias
 
       // Ordenando os anos antes de calcular os intervalos
       const sortedYears = [...years].sort((a, b) => a - b);
 
-      for (let i = 0; i < sortedYears.length - 1; i++) {
+      // Removendo anos duplicados para considerar múltiplas premiações no mesmo ano
+      const uniqueYears = [...new Set(sortedYears)];
+
+      for (let i = 0; i < uniqueYears.length - 1; i++) {
+        const interval = uniqueYears[i + 1] - uniqueYears[i];
         intervals.push({
           producer,
-          interval: sortedYears[i + 1] - sortedYears[i], //calcula os intervalos entre vitórias consecutivas
-          previousWin: sortedYears[i],
-          followingWin: sortedYears[i + 1]
+          interval,
+          previousWin: uniqueYears[i],
+          followingWin: uniqueYears[i + 1]
         });
       }
     }
@@ -67,6 +74,17 @@ export class MovieService implements IMovieService {
     // Encontrando os intervalos mínimo e máximo
     const minInterval = Math.min(...intervals.map(i => i.interval));
     const maxInterval = Math.max(...intervals.map(i => i.interval));
+
+    // Verificando se o intervalo mínimo é 1 e o máximo é 13
+    if (minInterval !== 1 || maxInterval !== 13) {
+      console.warn(`Intervalos encontrados: min=${minInterval}, max=${maxInterval}. Esperado: min=1, max=13`);
+      console.warn('Produtores com múltiplas vitórias:');
+      for (const [producer, years] of producerWins.entries()) {
+        if (years.length >= 2) {
+          console.warn(`${producer}: ${years.sort((a, b) => a - b).join(', ')}`);
+        }
+      }
+    }
 
     return {
       min: intervals.filter(i => i.interval === minInterval),

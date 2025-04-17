@@ -1,4 +1,3 @@
-
 # API de Premiações de Filmes
 
 Uma API RESTful para possibilitar a leitura da lista de indicados e vencedores
@@ -65,18 +64,24 @@ npm install
 npm run build
 ```
 
-2. Inicie o servidor informando o caminho para seu arquivo CSV:  
+2. Inicie o servidor:  
 ```bash
-# Modo de desenvolvimento
-npm run dev -- /caminho/para/seu/movielist.csv
+# Modo de desenvolvimento (usa o arquivo padrão em src/data/movielist.csv)
+npm run dev
 
-# Modo de produção (após compilar)
-npm start -- /caminho/para/seu/movielist.csv
+# Modo de desenvolvimento com arquivo personalizado
+npm run dev -- /caminho/para/seu/arquivo.csv
+
+# Modo de produção (após compilar, usa o arquivo padrão)
+npm start
+
+# Modo de produção com arquivo personalizado
+npm start -- /caminho/para/seu/arquivo.csv
 ```
 
 O servidor será iniciado na porta 3000 por padrão.
 
-> **Nota**: É necessário fornecer o caminho para seu arquivo CSV ao iniciar a aplicação. O arquivo CSV deve conter os dados de premiações no formato correto.
+> **Nota**: Se nenhum arquivo CSV for fornecido, a aplicação usará o arquivo padrão em src/data/movielist.csv.
 
 ## Executando os Testes
 

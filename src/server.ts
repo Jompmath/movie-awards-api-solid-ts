@@ -4,6 +4,7 @@ import { DatabaseConfig } from './config/database';
 import movieRoutes from './routes/movieRoutes';
 import { Container } from './config/container';
 import * as path from 'path';
+import * as fs from 'fs';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,11 +16,17 @@ app.use('/api', movieRoutes);
 async function initializeApp() {
   try {
     // Obtém o caminho do CSV a partir dos argumentos da linha de comando
-    const csvPath = process.argv[2];
+    let csvPath = process.argv[2];
     
+    // Se nenhum caminho for fornecido, usa o arquivo padrão
     if (!csvPath) {
-      console.error('Por favor, forneça o caminho do arquivo CSV como argumento.');
-      console.error('Uso: npm start <caminho-do-arquivo-csv>');
+      csvPath = path.join(__dirname, 'data/movielist.csv');
+      console.log(`Nenhum arquivo CSV fornecido. Usando o arquivo padrão: ${csvPath}`);
+    }
+
+    // Verifica se o arquivo existe
+    if (!fs.existsSync(csvPath)) {
+      console.error(`O arquivo CSV não foi encontrado: ${csvPath}`);
       process.exit(1);
     }
 

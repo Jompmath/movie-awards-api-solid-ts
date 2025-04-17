@@ -14,7 +14,7 @@ describe('Testes de Integração da API de Filmes', () => {
     // Importando dados de teste usando o container de dependências
     const container = Container.getInstance();
     const movieService = container.getMovieService();
-    const csvPath = path.join(__dirname, '../../movielist.csv');
+    const csvPath = path.join(__dirname, '../data/movielist.csv');
     await movieService.importMoviesFromCSV(csvPath);
 
     app = express();
@@ -22,34 +22,38 @@ describe('Testes de Integração da API de Filmes', () => {
   });
 
   describe('GET /api/producers/intervals', () => {
-    it('deve retornar intervalos de produtores', async () => {
+    it('deve retornar intervalos de produtores com os valores corretos', async () => {
       const response = await request(app)
         .get('/api/producers/intervals')
         .expect(200);
 
+      // Verificando a estrutura da resposta
       expect(response.body).toHaveProperty('min');
       expect(response.body).toHaveProperty('max');
-      
-      // Verificando a estrutura da resposta
       expect(Array.isArray(response.body.min)).toBe(true);
       expect(Array.isArray(response.body.max)).toBe(true);
 
-      // Verificando a estrutura da disposição dos objetos
-      if (response.body.min.length > 0) {
-        const minInterval = response.body.min[0];
-        expect(minInterval).toHaveProperty('producer');
-        expect(minInterval).toHaveProperty('interval');
-        expect(minInterval).toHaveProperty('previousWin');
-        expect(minInterval).toHaveProperty('followingWin');
-      }
+      // Verificando os valores específicos retornados pela API
+      // Intervalo mínimo deve ser 1
+      expect(response.body.min.length).toBeGreaterThan(0);
+      expect(response.body.min[0].interval).toBe(1);
+      
+      // Intervalo máximo deve ser 13
+      expect(response.body.max.length).toBeGreaterThan(0);
+      expect(response.body.max[0].interval).toBe(13);
 
-      if (response.body.max.length > 0) {
-        const maxInterval = response.body.max[0];
-        expect(maxInterval).toHaveProperty('producer');
-        expect(maxInterval).toHaveProperty('interval');
-        expect(maxInterval).toHaveProperty('previousWin');
-        expect(maxInterval).toHaveProperty('followingWin');
-      }
+      // Verificando os produtores específicos
+      // Produtor com intervalo mínimo
+      const minProducer = response.body.min[0].producer;
+      expect(minProducer).toBe('Joel Silver');
+      expect(response.body.min[0].previousWin).toBe(1990);
+      expect(response.body.min[0].followingWin).toBe(1991);
+
+      // Produtor com intervalo máximo
+      const maxProducer = response.body.max[0].producer;
+      expect(maxProducer).toBe('Matthew Vaughn');
+      expect(response.body.max[0].previousWin).toBe(2002);
+      expect(response.body.max[0].followingWin).toBe(2015);
     });
   });
 }); 
