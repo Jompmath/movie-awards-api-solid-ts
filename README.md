@@ -66,7 +66,7 @@ npm run build
 
 2. Inicie o servidor:  
 ```bash
-# Modo de desenvolvimento (usa o arquivo padrão em src/data/movielist.csv)
+# Modo de desenvolvimento (usa o arquivo padrão em ./movielist.csv)
 npm run dev
 
 # Modo de desenvolvimento com arquivo personalizado

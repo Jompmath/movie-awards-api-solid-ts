@@ -14,7 +14,7 @@ describe('Testes de Integração da API de Filmes', () => {
     // Importando dados de teste usando o container de dependências
     const container = Container.getInstance();
     const movieService = container.getMovieService();
-    const csvPath = path.join(__dirname, '../data/movielist.csv');
+    const csvPath = path.join(__dirname, '../../movielist.csv');
     await movieService.importMoviesFromCSV(csvPath);
 
     app = express();

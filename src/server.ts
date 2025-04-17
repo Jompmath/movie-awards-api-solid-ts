@@ -18,9 +18,9 @@ async function initializeApp() {
     // Obtém o caminho do CSV a partir dos argumentos da linha de comando
     let csvPath = process.argv[2];
     
-    // Se nenhum caminho for fornecido, usa o arquivo padrão
+    // Se nenhum caminho for fornecido, usa o arquivo padrão na raiz
     if (!csvPath) {
-      csvPath = path.join(__dirname, 'data/movielist.csv');
+      csvPath = path.join(__dirname, '../movielist.csv');
       console.log(`Nenhum arquivo CSV fornecido. Usando o arquivo padrão: ${csvPath}`);
     }
 
